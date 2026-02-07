@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Skills</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="centered-page">
+
+<div class="form-card">
+    <h2>Update Your Skills</h2>
+
+    <form method="post">
+        <input type="number" name="python" placeholder="Python (0–100)" required>
+        <input type="number" name="ml" placeholder="Machine Learning (0–100)" required>
+        <input type="number" name="communication" placeholder="Communication (0–100)" required>
+
+        <button type="submit">Save Profile</button>
+    </form>
+</div>
+
+</body>
+</html>

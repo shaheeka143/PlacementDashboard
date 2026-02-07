@@ -1,0 +1,17 @@
+<h2>Admin Panel</h2>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>Email</th>
+        <th>Skill Score</th>
+        <th>Resume Score</th>
+    </tr>
+
+    {% for s in students %}
+    <tr>
+        <td>{{ s[1] }}</td>
+        <td>{{ s[2] }}</td>
+        <td>{{ s[3] }}</td>
+    </tr>
+    {% endfor %}
+</table>
