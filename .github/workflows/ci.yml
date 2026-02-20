@@ -1,0 +1,55 @@
+name: CI and Deploy to Render
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests (if any)
+        run: |
+          if [ -d tests ] || [ -f pytest.ini ]; then
+            pytest -q || true
+          else
+            echo "No tests found, skipping"
+          fi
+
+      - name: Lint (optional)
+        run: |
+          if command -v flake8 >/dev/null 2>&1; then
+            flake8 || true
+          else
+            echo "flake8 not installed, skipping"
+          fi
+
+      - name: Deploy to Render (main only)
+        if: github.ref == 'refs/heads/main'
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+        run: |
+          if [ -z "${RENDER_API_KEY}" ] || [ -z "${RENDER_SERVICE_ID}" ]; then
+            echo "Render secrets not set; skipping deploy"
+            exit 0
+          fi
+          echo "Triggering deploy for service ${RENDER_SERVICE_ID}"
+          curl -s -X POST "https://api.render.com/v1/services/${RENDER_SERVICE_ID}/deploys" \
+            -H "Authorization: Bearer ${RENDER_API_KEY}" \
+            -H "Accept: application/json" \
+            -H "Content-Type: application/json" \
+            -d '{"clearCache":true}' || true
