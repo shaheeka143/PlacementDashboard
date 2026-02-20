@@ -1,25 +1,27 @@
 {% extends "student/base_dashboard.html" %}
 
 {% block content %}
-<section class="section">
-    <h1>Welcome to Acadeno Placement Portal</hh1>
-    <p>Your centralized platform for tracking readiness, skills, and opportunities.</p>
+
+<section class="panel-large">
+    <h1 class="metric-title">Welcome back</h1>
+    <p class="metric-sub">Your centralized platform for tracking readiness, skills, and opportunities.</p>
 </section>
 
 <section class="cards">
-    <div class="card">
+    <a href="/readiness" class="card readiness">
         <h3>Placement Readiness</h3>
-        <p>72%</p>
-    </div>
+        <p class="score">72%</p>
+    </a>
 
-    <div class="card">
+    <a href="/skills" class="card skill">
         <h3>Skills Completed</h3>
-        <p>8 / 12</p>
-    </div>
+        <p class="score">8 / 12</p>
+    </a>
 
-    <div class="card">
+    <a href="/tasks" class="card resume">
         <h3>Tasks Pending</h3>
-        <p>3</p>
-    </div>
+        <p class="score">3</p>
+    </a>
 </section>
+
 {% endblock %}

@@ -1,4 +1,31 @@
 {% extends "student/base.html" %}
 {% block content %}
-<h2 style="text-align:center">Skill Gap Analysis</h2>
+<section class="panel-large">
+	<h2 class="metric-title">Skill Gap Analysis</h2>
+	<p class="metric-sub">A focused summary of your current skill strengths and gaps.</p>
+
+	<p class="metric-score">{{ skill }}%</p>
+
+	{% if skill >= 80 %}
+		<p class="status-good">You're strong in core skills. Keep building projects to showcase depth.</p>
+	{% elif skill >= 50 %}
+		<p class="status-medium">You have a decent base — focus on problem-solving and practical projects.</p>
+	{% else %}
+		<p class="status-bad">Work on fundamentals: algorithms, data structures and one backend framework.</p>
+	{% endif %}
+
+	<h3 style="margin-top:16px">Suggested Exercises</h3>
+	<ol>
+		<li>Solve easy→medium problems on a coding platform.</li>
+		<li>Build a small REST API using Flask or Express.</li>
+		<li>Read one chapter from a algorithms book every other day.</li>
+	</ol>
+
+	<div class="actions-row">
+		<a href="/tasks" class="primary-btn-lg">Open Daily Tasks</a>
+		<a href="/student/dashboard" class="ghost-btn">Back to Dashboard</a>
+	</div>
+</section>
+
+{% include 'student/_tasks_snippet.html' %}
 {% endblock %}

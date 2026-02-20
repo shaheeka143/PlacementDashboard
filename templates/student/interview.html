@@ -1,4 +1,31 @@
 {% extends "student/base.html" %}
 {% block content %}
-<h2 style="text-align:center">Interview Performance History</h2>
+<section class="panel-large">
+	<h2 class="metric-title">Interview Performance</h2>
+	<p class="metric-sub">Recent interview practice feedback and overall readiness for live interviews.</p>
+
+	<p class="metric-score">Interview Score: {{ interview }}%</p>
+
+	{% if interview >= 80 %}
+		<p class="status-good">Strong interviewing — continue mock interviews to maintain confidence.</p>
+	{% elif interview >= 50 %}
+		<p class="status-medium">Average — work on communication and common problem patterns.</p>
+	{% else %}
+		<p class="status-bad">Below average — practice behavioural questions and time-boxed coding drills.</p>
+	{% endif %}
+
+	<h3 style="margin-top:16px">Practice Suggestions</h3>
+	<ul>
+		<li>Schedule 3 mock interviews per week with peers or platforms.</li>
+		<li>Practice system design basics for 30 minutes weekly.</li>
+		<li>Refine explanations: state approach, complexity and trade-offs.</li>
+	</ul>
+
+	<div class="actions-row">
+		<a href="/tasks" class="primary-btn-lg">Open Daily Tasks</a>
+		<a href="/student/dashboard" class="ghost-btn">Back to Dashboard</a>
+	</div>
+</section>
+
+{% include 'student/_tasks_snippet.html' %}
 {% endblock %}

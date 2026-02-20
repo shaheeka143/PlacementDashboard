@@ -1,24 +1,57 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Student Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body class="login-body">
+{% extends "auth/base_auth.html" %}
 
-<div class="login-card">
-    <h2>Student Login</h2>
+{% block content %}
+<div class="auth-container" style="margin-top:28px;">
+  <div class="auth-card">
+    <div class="brand">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Acadeno" class="brand-logo" onerror="this.style.display='none'">
+      <div>
+        <h1>Welcome back</h1>
+        <p class="sub">Sign in to access your placement dashboard</p>
+      </div>
+    </div>
 
-    <form method="POST">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Login</button>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flash">
+      {% for msg in messages %}<div class="flash-item">{{ msg }}</div>{% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <form method="post" class="auth-form" autocomplete="off">
+      <label class="field">
+        <span class="label">Email</span>
+        <input type="email" name="email" placeholder="you@university.edu" required>
+      </label>
+
+      <label class="field">
+        <span class="label">Password</span>
+        <input type="password" name="password" placeholder="••••••••" required>
+      </label>
+
+      <div class="form-row">
+        <label class="remember"><input type="checkbox" name="remember"> Remember me</label>
+        <a class="forgot" href="#">Forgot?</a>
+      </div>
+
+      <button class="btn primary" type="submit">Sign in</button>
+
+      <p class="muted">New to Acadeno? <a href="{{ url_for('register') }}">Create account</a></p>
     </form>
+  </div>
 
-    <p>
-        <a href="{{ url_for('register') }}">Create new account</a>
-    </p>
+  <aside class="auth-side">
+    <div class="hero-logo-wrap">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Acadeno logo" class="hero-logo" onerror="this.style.display='none'">
+    </div>
+    <h2>Get placement-ready</h2>
+    <p>Resume analysis, skill tracking and daily tasks — all in one place.</p>
+    <ul class="benefits">
+      <li>Resume scoring & tips</li>
+      <li>Personalized skill goals</li>
+      <li>Daily improvement plan</li>
+    </ul>
+  </aside>
 </div>
-
-</body>
-</html>
+{% endblock %}

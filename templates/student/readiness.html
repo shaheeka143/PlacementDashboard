@@ -1,4 +1,31 @@
 {% extends "student/base.html" %}
 {% block content %}
-<h2 style="text-align:center">Placement Readiness Details</h2>
+<section class="panel-large">
+	<h2 class="metric-title">Placement Readiness</h2>
+	<p class="metric-sub">Overall readiness and interview preparedness at a glance.</p>
+
+	<p class="metric-score">{{ readiness }}%</p>
+	<p class="metric-sub">Interview Score: <strong>{{ interview }}%</strong></p>
+
+	{% if readiness >= 80 %}
+		<p class="status-good">Excellent — you're almost ready for placements.</p>
+	{% elif readiness >= 50 %}
+		<p class="status-medium">Moderate — focus on targeted improvement tasks.</p>
+	{% else %}
+		<p class="status-bad">Needs Improvement — follow the daily tasks and retake assessments.</p>
+	{% endif %}
+
+	<h3 style="margin-top:18px">Recommended Actions</h3>
+	<ul>
+		<li>Practice coding problems for 45 minutes daily.</li>
+		<li>Update your resume — highlight recent projects and technologies.</li>
+		<li>Complete interview mock tests and review weak topics.</li>
+	</ul>
+
+	<div class="actions-row">
+		<a href="/tasks" class="primary-btn-lg">View Daily Improvement Tasks</a>
+		<a href="/student/dashboard" class="ghost-btn">Back to Dashboard</a>
+	</div>
+	{% include 'student/_tasks_snippet.html' %}
+
 {% endblock %}

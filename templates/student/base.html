@@ -1,22 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Acadeno Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Acadeno — Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+  <header class="navbar">
+    <div class="nav-inner">
+      <div class="logo-area">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Acadeno" class="logo-img" onerror="this.style.display='none'">
+        <div class="logo-text">ACADENO</div>
+      </div>
+      <nav class="nav-links">
+        <a href="{{ url_for('student_dashboard') }}" class="nav-link {% if request.path.startswith(url_for('student_dashboard')) %}active{% endif %}">Dashboard</a>
+        <a href="{{ url_for('register') }}" class="nav-link {% if request.path.startswith(url_for('register')) %}active{% endif %}">Register</a>
+        <a href="{{ url_for('tasks') }}" class="nav-link {% if request.path.startswith(url_for('tasks')) %}active{% endif %}">Tasks</a>
+        <a href="{{ url_for('logout') }}" class="nav-link logout logout-btn">Logout</a>
+      </nav>
+    </div>
+  </header>
 
-<header class="navbar">
-    <div class="center-logo">ACADENO</div>
-    <nav>
-        <a href="{{ url_for('dashboard') }}">Dashboard</a>
-        <a href="{{ url_for('logout') }}" class="logout">Logout</a>
-    </nav>
-</header>
-
-<main>
+  <main class="page-container">
     {% block content %}{% endblock %}
-</main>
-
+  </main>
 </body>
 </html>

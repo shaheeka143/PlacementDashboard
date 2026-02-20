@@ -1,4 +1,31 @@
 {% extends "student/base.html" %}
 {% block content %}
-<h2 style="text-align:center">Resume Strength Report</h2>
+<section class="panel-large">
+	<h2 class="metric-title">Resume Strength Report</h2>
+	<p class="metric-sub">An automated evaluation of keywords, projects and clarity on your resume.</p>
+
+	<p class="metric-score">Resume Score: {{ resume }}%</p>
+
+	{% if resume >= 80 %}
+		<p class="status-good">Excellent — your resume highlights projects and relevant skills.</p>
+	{% elif resume >= 50 %}
+		<p class="status-medium">Good — consider adding more quantified achievements and technologies.</p>
+	{% else %}
+		<p class="status-bad">Needs work — add projects, technologies used and measurable outcomes.</p>
+	{% endif %}
+
+	<h3 style="margin-top:16px">Quick Improvements</h3>
+	<ul>
+		<li>Add at least one project with links and tech stack.</li>
+		<li>Use bullet points with metrics (e.g., "Improved X by Y%").</li>
+		<li>Include relevant keywords for the roles you want.</li>
+	</ul>
+
+	<div class="actions-row">
+		<a href="/upload_resume" class="primary-btn-lg">Upload New Resume</a>
+		<a href="/student/dashboard" class="ghost-btn">Back to Dashboard</a>
+	</div>
+</section>
+
+{% include 'student/_tasks_snippet.html' %}
 {% endblock %}

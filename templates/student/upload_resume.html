@@ -1,0 +1,15 @@
+{% extends "student/base.html" %}
+{% block content %}
+<section class="panel-large">
+  <h2 class="metric-title">Upload Resume (PDF)</h2>
+  <p class="metric-sub">Choose a PDF resume to update your Resume Strength score.</p>
+
+  <form action="/upload_resume" method="POST" enctype="multipart/form-data" class="upload-form">
+    <input class="file-input" type="file" name="resume" accept="application/pdf" required>
+    <div class="btn-row">
+      <button class="primary-btn-lg" type="submit">Upload</button>
+      <a href="/student/dashboard" class="ghost-btn">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

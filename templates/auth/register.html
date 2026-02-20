@@ -1,22 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Register</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body class="login-body">
+{% extends "auth/base_auth.html" %}
 
-<div class="login-card">
-    <h2>Student Registration</h2>
+{% block content %}
+<div class="auth-container" style="margin-top:28px;">
+  <div class="auth-card">
+    <div class="brand">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Acadeno" class="brand-logo" onerror="this.style.display='none'">
+      <div>
+        <h1>Create account</h1>
+        <p class="sub">Join and start improving your placement readiness</p>
+      </div>
+    </div>
 
-    <form method="POST">
-        <input name="email" type="email" placeholder="Email" required>
-        <input name="password" type="password" placeholder="Password" required>
-        <button type="submit">Register</button>
+    <form method="POST" class="auth-form" autocomplete="off">
+      <label class="field"><span class="label">Email</span><input name="email" type="email" placeholder="you@university.edu" required></label>
+      <label class="field"><span class="label">Password</span><input name="password" type="password" placeholder="At least 8 characters" required></label>
+      <div class="policy">Password must be 8+ chars with uppercase, lowercase, number & symbol.</div>
+      <button class="btn primary" type="submit">Register</button>
+
+      <p class="muted">Already have an account? <a href="{{ url_for('login') }}">Sign in</a></p>
     </form>
+  </div>
 
-    <p><a href="/">Back to login</a></p>
+  <aside class="auth-side small">
+    <div class="hero-logo-wrap">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Acadeno logo" class="hero-logo" onerror="this.style.display='none'">
+    </div>
+    <h2>Why Acadeno?</h2>
+    <p>Track progress, strengthen your resume and get personalized tasks to improve.</p>
+  </aside>
 </div>
-
-</body>
-</html>
+{% endblock %}

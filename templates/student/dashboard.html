@@ -1,45 +1,53 @@
 {% extends "student/base.html" %}
 {% block content %}
 
-<section class="hero">
-    <h1 class="hero-text">Placement Ready.</h1>
+<section class="dashboard-hero">
+  <div class="hero-left">
+    <h1 class="hero-title">Placement Ready.</h1>
+    <p class="hero-sub">Track your skill progress, analyze your resume and follow daily improvement tasks made for you.</p>
 
-    <form action="/upload_resume" method="POST" enctype="multipart/form-data">
-        <input type="file" name="resume" required>
-        <button class="upload-btn">Upload Resume</button>
+    <div class="hero-actions">
+      <a href="/readiness" class="ghost-btn">View Readiness</a>
+      <a href="/tasks" class="primary-btn">View Daily Improvement Tasks</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <form action="/upload_resume" method="POST" enctype="multipart/form-data" class="panel">
+      <h4>Upload Resume</h4>
+      <input type="file" name="resume" required class="input-file">
+      <button class="small-btn" type="submit">Upload</button>
     </form>
 
-    <form action="/update_skills" method="POST" class="skill-form">
-        <label>Enter Skill Score (0–100)</label><br>
-        <input type="number" name="skill_score" min="0" max="100" required>
-        <button class="upload-btn">Update Skill Score</button>
+    <form action="/update_skills" method="POST" class="panel">
+      <h4>Update Skill Score</h4>
+      <label class="sr-only">Skill score (0-100)</label>
+      <input type="number" name="skill_score" min="0" max="100" required placeholder="Skill score (0–100)" class="text-input">
+      <button class="small-btn" type="submit">Update</button>
     </form>
+  </div>
 </section>
 
 <section class="cards">
-    <a href="/readiness" class="card readiness">
-        <h3>Placement Readiness</h3>
-        <p class="score">{{ readiness }}%</p>
-    </a>
+  <a href="/readiness" class="card readiness">
+    <h3>Placement Readiness</h3>
+    <p class="score">{{ readiness }}%</p>
+  </a>
 
-    <a href="/skills" class="card skill">
-        <h3>Skill Score</h3>
-        <p class="score">{{ skill }}%</p>
-    </a>
+  <a href="/skills" class="card skill">
+    <h3>Skill Score</h3>
+    <p class="score">{{ skill }}%</p>
+  </a>
 
-    <a href="/resume" class="card resume">
-        <h3>Resume Strength</h3>
-        <p class="score">{{ resume }}%</p>
-    </a>
+  <a href="/resume" class="card resume">
+    <h3>Resume Strength</h3>
+    <p class="score">{{ resume }}%</p>
+  </a>
 
-    <a href="/interview" class="card interview">
-        <h3>Interview Performance</h3>
-        <p class="score">{{ interview }}%</p>
-    </a>
+  <a href="/interview" class="card interview">
+    <h3>Interview Performance</h3>
+    <p class="score">{{ interview }}%</p>
+  </a>
 </section>
-
-<div class="tasks-link">
-    <a href="/tasks" class="tasks-btn">View Daily Improvement Tasks</a>
-</div>
 
 {% endblock %}
