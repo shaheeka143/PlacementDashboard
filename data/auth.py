@@ -20,6 +20,15 @@ def init_db():
         )
     """)
 
+    # Check if any admin exists
+    c.execute("SELECT id FROM users WHERE role='admin' LIMIT 1")
+    if not c.fetchone():
+        # Create a default admin account
+        # Password: Admin@123 (meets complexity requirements)
+        hashed_pw = bcrypt.generate_password_hash("Admin@123").decode("utf-8")
+        c.execute("INSERT INTO users (email, password, role) VALUES (?, ?, ?)",
+                  ("admin@placement.com", hashed_pw, "admin"))
+
     conn.commit()
     conn.close()
 
