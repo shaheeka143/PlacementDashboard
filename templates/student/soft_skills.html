@@ -1,0 +1,49 @@
+{% extends "student/base.html" %}
+{% block content %}
+<div class="panel-large">
+  <h2 class="metric-title">🧠 AI-Driven Soft Skills & Confidence Training</h2>
+  <p class="metric-sub">Daily communication challenges, discussion simulations, and confidence-building exercises specifically powerful for average & shy students.</p>
+
+  <h3 style="color: var(--brand-cyan); font-size: 20px; font-weight: 800; margin-top: 30px; margin-bottom: 10px;">💬 Soft Skills Challenges</h3>
+  <div class="task-grid" style="margin-top: 10px; margin-bottom: 40px;">
+    {% for task in soft_skills %}
+    <div class="task-box {% if task.status == 'Completed' %}high{% else %}medium{% endif %}">
+      <h3 style="font-weight: 800; font-size:18px;">{{ task.title }}</h3>
+      <p style="color:var(--muted); font-size: 14px;">{{ task.desc }}</p>
+      <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 13px; font-weight: 800; color: {% if task.status == 'Completed' %}#16a34a{% else %}#d97706{% endif %};">{{ task.status }}</span>
+        <form action="/start_challenge" method="POST" style="margin:0;">
+          <input type="hidden" name="challenge" value="{{ task.title }}">
+          {% if task.status == 'Completed' %}
+            <button type="submit" class="small-btn" style="background: transparent; border: 1px solid var(--brand-cyan); color: var(--brand-cyan);">Retry ➔</button>
+          {% else %}
+            <button type="submit" class="small-btn">Start ➔</button>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <h3 style="color: var(--brand-green); font-size: 20px; font-weight: 800; margin-top: 30px; margin-bottom: 10px;">🌟 Confidence-Building Exercises</h3>
+  <div class="task-grid" style="margin-top: 10px;">
+    {% for task in confidence %}
+    <div class="task-box {% if task.status == 'Completed' %}high{% else %}medium{% endif %}">
+      <h3 style="font-weight: 800; font-size:18px;">{{ task.title }}</h3>
+      <p style="color:var(--muted); font-size: 14px;">{{ task.desc }}</p>
+      <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 13px; font-weight: 800; color: {% if task.status == 'Completed' %}#16a34a{% else %}#d97706{% endif %};">{{ task.status }}</span>
+        <form action="/start_challenge" method="POST" style="margin:0;">
+          <input type="hidden" name="challenge" value="{{ task.title }}">
+          {% if task.status == 'Completed' %}
+            <button type="submit" class="small-btn" style="background: transparent; border: 1px solid var(--brand-green); color: var(--brand-green);">Retry ➔</button>
+          {% else %}
+            <button type="submit" class="small-btn">Start ➔</button>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "student/base.html" %}
+{% block content %}
+<div class="dashboard-hero" style="margin-top: 20px;">
+  <div class="hero-left" style="background: linear-gradient(135deg, #1f4acb, #112a7a); color: white;">
+    <h2 class="metric-title" style="color: white; font-size: 32px; font-weight: 800;">AI Student Profiling & Skill Map</h2>
+    <p class="metric-sub" style="color: #cbd5e1; font-size: 16px; margin-bottom: 24px;">Based on your course performance, projects, internships, and assessments.</p>
+    
+    <div style="display: flex; gap: 30px; margin-bottom: 24px;">
+      <div>
+        <p style="font-size: 13px; text-transform: uppercase; color: #94a3b8; font-weight: 800; margin: 0;">Target Role</p>
+        <div style="font-size: 24px; font-weight: 900;">{{ profile.role }}</div>
+      </div>
+      <div>
+        <p style="font-size: 13px; text-transform: uppercase; color: #94a3b8; font-weight: 800; margin: 0;">Technical Score</p>
+        <div style="font-size: 24px; font-weight: 900;">{{ profile.technical }}%</div>
+      </div>
+      <div>
+        <p style="font-size: 13px; text-transform: uppercase; color: #94a3b8; font-weight: 800; margin: 0;">Soft Skills</p>
+        <div style="font-size: 24px; font-weight: 900;">{{ profile.soft_skills }}%</div>
+      </div>
+    </div>
+    
+    <div style="background: rgba(255,255,255,0.1); padding: 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2);">
+      <p style="margin: 0; font-size: 16px; font-weight: 600; font-style: italic;">"{{ profile.insight }}"</p>
+    </div>
+  </div>
+  
+  <div class="hero-right panel">
+    <h3 style="font-size: 18px; font-weight: 800; margin: 6px 0 16px;">Live Skill Graph</h3>
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      {% for skill in profile.skills %}
+      <div>
+        <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; margin-bottom: 6px;">
+          <span>{{ skill.name }}</span>
+          <span style="color: #64748b;">{{ skill.level }}</span>
+        </div>
+        <div style="height: 8px; width: 100%; background: #0a1118; border-radius: 4px; overflow: hidden; border: 1px solid rgba(0,255,136,0.2);">
+          {% if skill.value >= 75 %}
+          <div style="height: 100%; width: {{ skill.value }}%; background: #00ff88; box-shadow: 0 0 10px rgba(0,255,136,0.5);"></div>
+          {% elif skill.value >= 40 %}
+          <div style="height: 100%; width: {{ skill.value }}%; background: #0ff0fc; box-shadow: 0 0 10px rgba(15,240,252,0.5);"></div>
+          {% else %}
+          <div style="height: 100%; width: {{ skill.value }}%; background: #ff3366; box-shadow: 0 0 10px rgba(255,51,102,0.5);"></div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

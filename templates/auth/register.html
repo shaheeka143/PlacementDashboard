@@ -2,31 +2,58 @@
 
 {% block content %}
 <div class="auth-container" style="margin-top:28px;">
-  <div class="auth-card">
-    <div class="brand">
-      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Acadeno" class="brand-logo" onerror="this.style.display='none'">
-      <div>
-        <h1>Create account</h1>
-        <p class="sub">Join and start improving your placement readiness</p>
+    <div class="auth-card">
+      <div class="brand-row">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+        <div class="logo-text">ACADENO_SECURE</div>
       </div>
+      
+      <h1>Generate Auth Token</h1>
+      <p class="sub">Enroll into the placement readiness network</p>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <div class="flash" style="margin-bottom: 20px;">
+        {% for category, msg in messages %}
+          <div class="flash-item flash-{{ 'error' if category == 'error' or msg.startswith('Invalid') or msg.startswith('Password') or msg.startswith('Email') else 'success' }}" style="padding: 12px; font-family: monospace; border-left: 3px solid; background: rgba(255,51,102,0.1); color: #ff3366;">{{ msg }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% endwith %}
+
+      <form method="POST" class="auth-form" autocomplete="off">
+        <label class="field">
+          <span class="label">Ident_Email</span>
+          <input name="email" type="email" placeholder="user@sys.network" required>
+        </label>
+        
+        <label class="field">
+          <span class="label">Pass_Key</span>
+          <input name="password" type="password" placeholder="[ENCRYPTED_KEY]" required>
+          <div class="password-reqs">REQUIREMENTS: 8+ Chars | Upper & Lowercase | 1 Numeral | 1 Symbol (!@#$%^&*)</div>
+        </label>
+        
+        <button class="btn primary" type="submit" style="margin-top: 10px;">Allocate Array</button>
+
+        <p class="muted">Already verified? <a href="{{ url_for('login') }}">Access Node</a></p>
+      </form>
     </div>
 
-    <form method="POST" class="auth-form" autocomplete="off">
-      <label class="field"><span class="label">Email</span><input name="email" type="email" placeholder="you@university.edu" required></label>
-      <label class="field"><span class="label">Password</span><input name="password" type="password" placeholder="At least 8 characters" required></label>
-      <div class="policy">Password must be 8+ chars with uppercase, lowercase, number & symbol.</div>
-      <button class="btn primary" type="submit">Register</button>
-
-      <p class="muted">Already have an account? <a href="{{ url_for('login') }}">Sign in</a></p>
-    </form>
-  </div>
-
-  <aside class="auth-side small">
-    <div class="hero-logo-wrap">
-      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Acadeno logo" class="hero-logo" onerror="this.style.display='none'">
-    </div>
-    <h2>Why Acadeno?</h2>
-    <p>Track progress, strengthen your resume and get personalized tasks to improve.</p>
-  </aside>
+    <aside class="auth-side">
+      <h2>DEFENSE_GRID</h2>
+      <p>Continuous monitoring of your technical capabilities to prevent professional skill vulnerabilities.</p>
+      
+      <ul class="benefits">
+        <li>Zero-knowledge job matching</li>
+        <li>Encrypted profile mapping</li>
+        <li>Daily challenge execution</li>
+      </ul>
+      
+      <div style="margin-top: 50px; opacity: 0.5; font-family: monospace; font-size: 11px;">
+        <div>IP: [LOGGED]</div>
+        <div>SYS_TIME: SYNCING...</div>
+        <div>ENCRYPTION: AES-256</div>
+      </div>
+    </aside>
 </div>
 {% endblock %}

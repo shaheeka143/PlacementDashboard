@@ -1,0 +1,117 @@
+{% extends "student/base.html" %}
+{% block content %}
+<div class="career-container" style="max-width: 1200px; margin: 0 auto; padding-bottom: 50px;">
+    <!-- AI Analysis Header -->
+    <div class="ai-header" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 40px; border-radius: 20px; color: white; margin-bottom: 30px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+        <div style="position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%); border-radius: 50%;"></div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1;">
+            <div>
+                <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+                    <span style="background: #3b82f6; padding: 8px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/></svg>
+                    </span>
+                    Intelligent Career Engine
+                </h1>
+                <p style="color: #94a3b8; font-size: 18px; line-height: 1.6; max-width: 700px;">
+                    Our AI kernel has analyzed your skill vectors and resume impact against current market telemetry. Here are your optimized career trajectories.
+                </p>
+            </div>
+            <div style="text-align: right; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
+                <div style="font-size: 14px; color: #60a5fa; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Optimal Match</div>
+                <div style="font-size: 32px; font-weight: 900; color: #fff;">{{ match_score }}%</div>
+                <div style="font-size: 13px; color: #94a3b8;">{{ best_role }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Career Paths Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 24px;">
+        {% for path in paths %}
+        <div class="career-card" style="background: white; border-radius: 20px; padding: 28px; border: 1px solid #e2e8f0; position: relative; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: default; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+            <!-- Status Badge -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <span style="
+                    background: {% if path.fit == 'Best Fit' %}#dcfce7; color: #166534{% elif path.fit == 'Alternative' %}#eff6ff; color: #1e40af{% else %}#f8fafc; color: #64748b{% endif %};
+                    padding: 6px 14px; border-radius: 99px; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+                ">
+                    {{ path.fit }}
+                </span>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <div style="width: 8px; height: 8px; border-radius: 50%; background: {% if path.match >= 80 %}#22c55e{% elif path.match >= 50 %}#3b82f6{% else %}#94a3b8{% endif %};"></div>
+                    <span style="font-weight: 800; font-size: 16px; color: #1e293b;">{{ path.match }}% Match</span>
+                </div>
+            </div>
+
+            <h3 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 16px; line-height: 1.3;">{{ path.role }}</h3>
+
+            <!-- Market Intelligence -->
+            <div style="background: #f1f5f9; border-radius: 12px; padding: 16px; margin-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div>
+                    <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 4px;">Market Demand</div>
+                    <div style="color: #0f172a; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 4px;">
+                        {{ path.demand }}
+                        <span style="color: #166534; font-size: 11px;">{{ path.demand_growth }}</span>
+                    </div>
+                </div>
+                <div>
+                    <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 4px;">Est. Salary</div>
+                    <div style="color: #0f172a; font-weight: 700; font-size: 14px;">{{ path.salary_trend }}</div>
+                </div>
+            </div>
+
+            <!-- Company Reqs -->
+            <div style="margin-bottom: 20px; flex-grow: 1;">
+                <div style="font-size: 12px; font-weight: 700; color: #475569; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Corporate Mandates
+                </div>
+                <ul style="padding: 0; margin: 0; list-style: none;">
+                    {% for req in path.company_reqs %}
+                    <li style="font-size: 13px; color: #475569; margin-bottom: 6px; display: flex; align-items: flex-start; gap: 8px;">
+                        <span style="color: #3b82f6; font-weight: bold;">•</span> {{ req }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Skills to Target -->
+            <div>
+                <div style="font-size: 12px; font-weight: 700; color: #475569; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    Stack Requirements
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                    {% for skill in path.skills_needed %}
+                    <span style="background: white; border: 1px solid #e2e8f0; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; color: #1e293b;">
+                        {{ skill }}
+                    </span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Hover Effect Background -->
+            <div class="hover-gradient" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); opacity: 0; transition: opacity 0.3s;"></div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- AI Intelligence Note -->
+    <div style="margin-top: 40px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 16px; padding: 24px; text-align: center;">
+        <p style="margin: 0; color: #64748b; font-size: 14px; font-style: italic;">
+            🚀 <strong>Placement Insight:</strong> These recommendations prevent you from chasing saturated roles by mapping your specific technical aptitude to under-served, high-growth sectors. Keep updating your skill score to see real-time shifts in your optimal career map.
+        </p>
+    </div>
+</div>
+
+<style>
+    .career-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border-color: #3b82f6;
+    }
+    .career-card:hover .hover-gradient {
+        opacity: 1;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "student/base.html" %}
+{% block content %}
+<div class="panel-large" style="margin-top: 20px;">
+  <h2 class="metric-title" style="margin-bottom: 8px;">{{ challenge }}</h2>
+  <p class="metric-sub" style="margin-bottom: 24px;">Complete the live simulation below. AI will evaluate your responses and adjust your Skill Score.</p>
+  
+  {% if context %}
+  <div style="background: rgba(15, 240, 252, 0.1); border-left: 4px solid var(--brand-cyan); padding: 16px; border-radius: 4px; margin-bottom: 24px;">
+    <h3 style="color: var(--brand-cyan); font-size: 14px; text-transform: uppercase; margin-bottom: 8px;">Simulator Prompt</h3>
+    <p style="color: #fff; font-size: 15px; margin: 0; line-height: 1.5;">{{ context }}</p>
+  </div>
+  {% endif %}
+  
+  <form action="{{ url_for('submit_challenge') }}" method="POST" style="display: flex; flex-direction: column; gap: 16px;">
+    <input type="hidden" name="challenge" value="{{ challenge }}">
+    
+    <label style="font-size: 14px; font-weight: 700; color: #cbd5e1;">Your Response / Input</label>
+    <textarea name="response_text" rows="8" placeholder="Type your response or simulation input here..." required 
+              style="width: 100%; border-radius: 8px; padding: 16px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: #fff; font-family: monospace; resize: vertical;"></textarea>
+    
+    <div style="display: flex; gap: 16px; align-items: center; margin-top: 8px;">
+      <button type="submit" class="primary-btn-lg">Submit to AI for Evaluation</button>
+      <a href="{{ url_for('soft_skills') }}" class="ghost-btn">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

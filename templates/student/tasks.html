@@ -8,20 +8,53 @@
 
     <div class="task-grid">
 
+    <div class="task-grid">
+
+        {% if readiness >= 80 %}
+        <!-- Advanced Tasks for High Readiness -->
         <div class="task-box high">
-            <h3>Practice Coding</h3>
-            <p>Solve 2 problems today (30–45 minutes).</p>
+            <h3>Advanced Algorithms</h3>
+            <p>Solve 2 hard LeetCode problems (45 minutes).</p>
+        </div>
+        <div class="task-box medium">
+            <h3>System Design</h3>
+            <p>Review the architecture of a scalable microservice.</p>
+        </div>
+        <div class="task-box low">
+            <h3>Mock Interview</h3>
+            <p>Schedule a peer mock interview focusing on advanced concepts.</p>
         </div>
 
+        {% elif readiness >= 50 %}
+        <!-- Intermediate Tasks for Medium Readiness -->
+        <div class="task-box high">
+            <h3>Core Practice</h3>
+            <p>Solve 3 focused intermediate coding problems (45 minutes).</p>
+        </div>
         <div class="task-box medium">
             <h3>Resume Update</h3>
-            <p>Add one new project or quantify an existing item.</p>
+            <p>Quantify an existing project's impact with metrics.</p>
         </div>
-
         <div class="task-box low">
             <h3>Core Subjects</h3>
-            <p>Revise a key concept in DBMS or OS (20 minutes).</p>
+            <p>Revise a key concept in DBMS or System Operations (30 minutes).</p>
         </div>
+
+        {% else %}
+        <!-- Fundamental Tasks for Low Readiness -->
+        <div class="task-box high">
+            <h3>Fundamentals</h3>
+            <p>Complete a tutorial on basic Data Structures (60 minutes).</p>
+        </div>
+        <div class="task-box medium">
+            <h3>Profile Building</h3>
+            <p>Create a basic LinkedIn profile and add relevant skills.</p>
+        </div>
+        <div class="task-box low">
+            <h3>Project Ideas</h3>
+            <p>Brainstorm one simple web application to add to your resume.</p>
+        </div>
+        {% endif %}
 
     </div>
 </section>

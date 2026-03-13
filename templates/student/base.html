@@ -14,13 +14,25 @@
         <div class="logo-text">ACADENO</div>
       </div>
       <nav class="nav-links">
-        <a href="{{ url_for('student_dashboard') }}" class="nav-link {% if request.path.startswith(url_for('student_dashboard')) %}active{% endif %}">Dashboard</a>
-        <a href="{{ url_for('register') }}" class="nav-link {% if request.path.startswith(url_for('register')) %}active{% endif %}">Register</a>
-        <a href="{{ url_for('tasks') }}" class="nav-link {% if request.path.startswith(url_for('tasks')) %}active{% endif %}">Tasks</a>
+        <a href="{{ url_for('student_dashboard') }}" class="nav-link {% if request.path == url_for('student_dashboard') %}active{% endif %}">Dashboard</a>
+        <a href="{{ url_for('matching') }}" class="nav-link {% if request.path == url_for('matching') %}active{% endif %}">Job Match</a>
+        <a href="{{ url_for('soft_skills') }}" class="nav-link {% if request.path == url_for('soft_skills') %}active{% endif %}">Soft Skills</a>
+        <a href="{{ url_for('profiling') }}" class="nav-link {% if request.path == url_for('profiling') %}active{% endif %}">Profiling</a>
+        <a href="{{ url_for('career_path') }}" class="nav-link {% if request.path == url_for('career_path') %}active{% endif %}">Career</a>
         <a href="{{ url_for('logout') }}" class="nav-link logout logout-btn">Logout</a>
       </nav>
     </div>
   </header>
+
+  <div class="flash-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          <div class="flash-item flash-{{ category }}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
 
   <main class="page-container">
     {% block content %}{% endblock %}

@@ -14,8 +14,8 @@ def init_db():
             email TEXT UNIQUE NOT NULL,
             password TEXT NOT NULL,
             role TEXT DEFAULT 'student',
-            skill_score INTEGER DEFAULT 60,
-            resume_score INTEGER DEFAULT 50,
+            skill_score INTEGER DEFAULT 0,
+            resume_score INTEGER DEFAULT 0,
             failed_attempts INTEGER DEFAULT 0
         )
     """)

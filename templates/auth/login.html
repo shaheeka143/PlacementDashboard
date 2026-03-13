@@ -2,56 +2,61 @@
 
 {% block content %}
 <div class="auth-container" style="margin-top:28px;">
-  <div class="auth-card">
-    <div class="brand">
-      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Acadeno" class="brand-logo" onerror="this.style.display='none'">
-      <div>
-        <h1>Welcome back</h1>
-        <p class="sub">Sign in to access your placement dashboard</p>
+    <div class="auth-card">
+      <div class="brand-row">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+        <div class="logo-text">ACADENO_SECURE</div>
       </div>
-    </div>
+      
+      <h1>Terminal Access</h1>
+      <p class="sub">Authenticate to access your placement dashboard</p>
 
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <div class="flash">
-      {% for msg in messages %}<div class="flash-item">{{ msg }}</div>{% endfor %}
-    </div>
-    {% endif %}
-    {% endwith %}
-
-    <form method="post" class="auth-form" autocomplete="off">
-      <label class="field">
-        <span class="label">Email</span>
-        <input type="email" name="email" placeholder="you@university.edu" required>
-      </label>
-
-      <label class="field">
-        <span class="label">Password</span>
-        <input type="password" name="password" placeholder="••••••••" required>
-      </label>
-
-      <div class="form-row">
-        <label class="remember"><input type="checkbox" name="remember"> Remember me</label>
-        <a class="forgot" href="#">Forgot?</a>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <div class="flash" style="margin-bottom: 20px;">
+        {% for category, msg in messages %}
+          <div class="flash-item flash-{{ 'error' if category == 'error' or msg == 'Invalid credentials' or msg.startswith('Account locked') else 'success' }}" style="padding: 12px; font-family: monospace; border-left: 3px solid; background: rgba(255,51,102,0.1); color: #ff3366;">{{ msg }}</div>
+        {% endfor %}
       </div>
+      {% endif %}
+      {% endwith %}
 
-      <button class="btn primary" type="submit">Sign in</button>
+      <form method="post" class="auth-form" autocomplete="off">
+        <label class="field">
+          <span class="label">Ident_Email</span>
+          <input type="email" name="email" placeholder="user@sys.network" required>
+        </label>
 
-      <p class="muted">New to Acadeno? <a href="{{ url_for('register') }}">Create account</a></p>
-    </form>
-  </div>
+        <label class="field">
+          <span class="label">Pass_Key</span>
+          <input type="password" name="password" placeholder="[ENCRYPTED_KEY]" required>
+        </label>
 
-  <aside class="auth-side">
-    <div class="hero-logo-wrap">
-      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Acadeno logo" class="hero-logo" onerror="this.style.display='none'">
+        <div class="form-row">
+          <label class="remember"><input type="checkbox" name="remember"> Keep session alive</label>
+        </div>
+
+        <button class="btn primary" type="submit" style="margin-top: 10px;">Init_Session</button>
+
+        <p class="muted">No access profile? <a href="{{ url_for('register') }}">Request auth token</a></p>
+      </form>
     </div>
-    <h2>Get placement-ready</h2>
-    <p>Resume analysis, skill tracking and daily tasks — all in one place.</p>
-    <ul class="benefits">
-      <li>Resume scoring & tips</li>
-      <li>Personalized skill goals</li>
-      <li>Daily improvement plan</li>
-    </ul>
-  </aside>
+
+    <aside class="auth-side">
+      <h2>SECURITY_PROTOCOL</h2>
+      <p>Acadeno system employs enterprise-grade evaluation to map your cyber-readiness metrics. Unauthorized access is strictly logged.</p>
+      
+      <ul class="benefits">
+        <li>End-to-end resume encryption & parsing</li>
+        <li>Automated skill vulnerability scanning</li>
+        <li>Live metric computation (Score: Pending)</li>
+      </ul>
+      
+      <div style="margin-top: 50px; opacity: 0.5; font-family: monospace; font-size: 11px;">
+        <div>IP: [LOGGED]</div>
+        <div>SYS_TIME: SYNCING...</div>
+        <div>ENCRYPTION: AES-256</div>
+      </div>
+    </aside>
 </div>
 {% endblock %}
